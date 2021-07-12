@@ -6,28 +6,28 @@ import { SocketContext } from '../SocketContext';
 import { useContext } from 'react';
 
 const useStyles = makeStyles((theme) => ({
+  gridContainer: {
+    justifyContent: 'center',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+    },
+  },
+  paper: {
+    padding: '10px',
+    border: '1px solid black',
+    margin: '10px',
+},
     video: {
       width: '600px',
       [theme.breakpoints.down('xs')]: {
         width: '300px',
       },
     },
-    gridContainer: {
-      justifyContent: 'center',
-      [theme.breakpoints.down('xs')]: {
-        flexDirection: 'column',
-      },
-    },
-    paper: {
-      padding: '10px',
-      border: '1px solid black',
-      margin: '10px',
-    },
   }));
 
 const VideoPlayer = () => {
 
-  const {name, callAccepted, myVideo, userVideo, callEnded, stream, call} = useContext(SocketContext);
+  const {name, stream, call, myVideo, userVideo, callIsAccepted, callIsEnded} = useContext(SocketContext);
     const classes = useStyles();
     return (
       <Grid container className={classes.gridContainer}>
@@ -44,7 +44,7 @@ const VideoPlayer = () => {
 
         {/* User's Video */}
         {
-          callAccepted && !callEnded && (
+          callIsAccepted && !callIsEnded && (
             <Paper className={classes.paper}>
               <Grid item xs={12} md={6}>
                 <Typography variant="h5" gutterBottom>{call.name || 'Name'}</Typography>

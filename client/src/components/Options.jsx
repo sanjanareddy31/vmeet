@@ -7,15 +7,20 @@ import { Assignment, Phone, PhoneDisabled } from '@material-ui/icons';
 import { SocketContext } from '../SocketContext';
 
 const useStyles = makeStyles((theme) => ({
+
+  paper: {
+    padding: '10px 20px',
+    border: '2px solid black',
+  },
+  margin: {
+    marginTop: 20,
+  },
+  padding: {
+    padding: 20,
+  },
     root: {
       display: 'flex',
       flexDirection: 'column',
-    },
-    gridContainer: {
-      width: '100%',
-      [theme.breakpoints.down('xs')]: {
-        flexDirection: 'column',
-      },
     },
     container: {
       width: '600px',
@@ -25,21 +30,18 @@ const useStyles = makeStyles((theme) => ({
         width: '80%',
       },
     },
-    margin: {
-      marginTop: 20,
+    gridContainer: {
+      width: '100%',
+      [theme.breakpoints.down('xs')]: {
+        flexDirection: 'column',
+      },
     },
-    padding: {
-      padding: 20,
-    },
-    paper: {
-      padding: '10px 20px',
-      border: '2px solid black',
-    },
+  
 }));
 
 const Options = ( { children } ) => {
-    const {me, callAccepted, name, setName, callEnded, leaveCall, callUser} = useContext(SocketContext);
-    const [IdToCall, setIdToCall] = useState('');
+    const {me, name, setName,  callUser, callIsAccepted, callIsEnded, leaveTheCall} = useContext(SocketContext);
+    const [IdToMakeTheCall, setIdToMakeTheCall] = useState('');
     const classes = useStyles();
     return (
         <Container className={classes.container}>
@@ -47,24 +49,24 @@ const Options = ( { children } ) => {
                 <form className={classes.root} noValidate autoComplete = "off">
                     <Grid container className = {classes.gridContainer}>
                         <Grid item xs = {12} md = {6} className = {classes.padding}>
-                            <Typography gutterBottom variant = "h6">Account Info</Typography>
+                            <Typography gutterBottom variant = "h6">User Info</Typography>
                             <TextField label = "Name" value = {name} onChange = {(e) => setName(e.target.value)} fullWidth />
                             {console.log(me)}
                             <CopyToClipboard text = {me} className = {classes.margin}>
                                 <Button variant = "contained" color = "primary" fullWidth startIcon={<Assignment fontSize = "large" />}>
-                                    Copy Your ID
+                                    Copy  ID
                                 </Button>
                             </CopyToClipboard>
                         </Grid>
                         <Grid item xs = {12} md = {6} className = {classes.padding}>
                             <Typography gutterBottom variant = "h6">Make a Call</Typography>
-                            <TextField label = "ID to Call" value = {IdToCall} onChange = {(e) => setIdToCall(e.target.value)} fullWidth />
-                            {callAccepted && !callEnded ? (
-                                <Button variant = "contained" color="secondary" startIcon = {<PhoneDisabled fontSize = "large" />} fullWidth onClick = {leaveCall}className = {classes.margin}>
+                            <TextField label = "ID to Call" value = {IdToMakeTheCall} onChange = {(e) => setIdToMakeTheCall(e.target.value)} fullWidth />
+                            {callIsAccepted && !callIsEnded ? (
+                                <Button variant = "contained" color="secondary" startIcon = {<PhoneDisabled fontSize = "large" />} fullWidth onClick = {leaveTheCall}className = {classes.margin}>
                                     End Call
                                 </Button>
                             ) : (   
-                                <Button variant = "contained" color="primary" startIcon = {<Phone fontSize = "large" />} fullWidth onClick = {() => callUser(IdToCall)}className = {classes.margin}>
+                                <Button variant = "contained" color="primary" startIcon = {<Phone fontSize = "large" />} fullWidth onClick = {() => callUser(IdToMakeTheCall)}className = {classes.margin}>
                                     Call
                                 </Button>
                             )}
