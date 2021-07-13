@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import { ContextProvider } from './SocketContext';
-import './styles.css';
+import './App.css';
 
 ReactDOM.render(
     <ContextProvider>

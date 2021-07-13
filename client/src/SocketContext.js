@@ -4,7 +4,7 @@ import Peer from 'simple-peer';
 
 const SocketContext = createContext();
 
-const socket = io('http://localhost:5000');
+const socket = io('https://v-meet-1.herokuapp.com/');
 
 const ContextProvider = ({ children }) => {
 
@@ -15,7 +15,7 @@ const ContextProvider = ({ children }) => {
     const [callIsEnded, setCallIsEnded] = useState(false); 
     const [stream, setStream] = useState(null);
 
-    const myVideo = useRef();
+    const ourVideo = useRef();
     const userVideo = useRef();
     const connectionRef = useRef();
 
@@ -24,7 +24,7 @@ const ContextProvider = ({ children }) => {
             .then((currentStream) => {
                 setStream(currentStream);
 
-                myVideo.current.srcObject = currentStream;
+                ourVideo.current.srcObject = currentStream;
             });
 
         socket.on('me',(id) => setMe(id));
@@ -50,7 +50,7 @@ const ContextProvider = ({ children }) => {
         peer.signal(call.signal);
 
         connectionRef.current = peer;
-    }
+    };
 
     const callUser = (id) => {
         const peer = new Peer({ initiator: true, trickle: false, stream });
@@ -79,10 +79,10 @@ const ContextProvider = ({ children }) => {
     }
 
     return (
-        <SocketContext.Provider value={{call,name,setName,myVideo,userVideo,callIsAccepted,stream,callIsEnded,me,callUser,leaveTheCall,answerTheCall,}}>
+        <SocketContext.Provider value={{call,name,setName,ourVideo,userVideo,callIsAccepted,stream,callIsEnded,me,callUser,leaveTheCall,answerTheCall,}}>
             {children}
         </SocketContext.Provider>
     );
-}
+};
 
 export{ContextProvider, SocketContext};

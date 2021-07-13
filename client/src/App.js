@@ -1,27 +1,11 @@
 import React from "react";
-
 import { makeStyles } from '@material-ui/core/styles';
-
 
 import VideoPlayer from './components/VideoPlayer';
 import Options from './components/Options';
 import Notifications from './components/Notifications';
 
 const useStyles = makeStyles((theme) => ({
-    appBar: {
-        borderRadius: 10,
-        margin: '30px 100px',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '600px',
-        //border: '2px solid black',
-
-        [theme.breakpoints.down('xs')]: {
-            width: '90%',
-        },
-    },
     image: {
         marginLeft: '15px',
     },

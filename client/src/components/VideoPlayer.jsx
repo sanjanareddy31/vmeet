@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
-    padding: '10px',
-    border: '1px solid black',
+    padding: '2px',
+    border: '1px white',
     margin: '10px',
 },
     video: {
@@ -27,22 +27,25 @@ const useStyles = makeStyles((theme) => ({
 
 const VideoPlayer = () => {
 
-  const {name, stream, call, myVideo, userVideo, callIsAccepted, callIsEnded} = useContext(SocketContext);
+  const {name, stream, call, ourVideo, userVideo, callIsAccepted, callIsEnded} = useContext(SocketContext);
     const classes = useStyles();
     return (
       <Grid container className={classes.gridContainer}>
+
         {/* Our Video */}
+
         {
           stream && (
             <Paper className={classes.paper}>
               <Grid item xs={12} md={6}>
                 <Typography variant="h5" gutterBottom>{name || 'Name'}</Typography>
-                <video playsInline muted ref={myVideo} autoPlay className={classes.video} />
+                <video playsInline muted ref={ourVideo} autoPlay className={classes.video} />
               </Grid>
             </Paper>
         )}
 
         {/* User's Video */}
+
         {
           callIsAccepted && !callIsEnded && (
             <Paper className={classes.paper}>
@@ -52,8 +55,9 @@ const VideoPlayer = () => {
               </Grid>
             </Paper>
         )}
+        
       </Grid>
     );
-}
+};
 
-export default VideoPlayer
+export default VideoPlayer;

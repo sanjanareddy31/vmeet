@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
 
   paper: {
     padding: '10px 20px',
-    border: '2px solid black',
+    border: '2px white',
   },
   margin: {
     marginTop: 20,
@@ -40,9 +40,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Options = ( { children } ) => {
+
     const {me, name, setName,  callUser, callIsAccepted, callIsEnded, leaveTheCall} = useContext(SocketContext);
     const [IdToMakeTheCall, setIdToMakeTheCall] = useState('');
     const classes = useStyles();
+
     return (
         <Container className={classes.container}>
             <Paper elevation={10} className={classes.paper}>
@@ -52,12 +54,13 @@ const Options = ( { children } ) => {
                             <Typography gutterBottom variant = "h6">User Info</Typography>
                             <TextField label = "Name" value = {name} onChange = {(e) => setName(e.target.value)} fullWidth />
                             {console.log(me)}
-                            <CopyToClipboard text = {me} className = {classes.margin}>
+                            <CopyToClipboard text = {me} className = {classes.margin}>                         
                                 <Button variant = "contained" color = "primary" fullWidth startIcon={<Assignment fontSize = "large" />}>
                                     Copy  ID
                                 </Button>
                             </CopyToClipboard>
                         </Grid>
+                        
                         <Grid item xs = {12} md = {6} className = {classes.padding}>
                             <Typography gutterBottom variant = "h6">Make a Call</Typography>
                             <TextField label = "ID to Call" value = {IdToMakeTheCall} onChange = {(e) => setIdToMakeTheCall(e.target.value)} fullWidth />
